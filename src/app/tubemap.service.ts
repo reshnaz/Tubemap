@@ -241,7 +241,7 @@ export class TubemapService {
 
           pathInterpolation = pathInterpolation.charAt(0).toUpperCase() + pathInterpolation.slice(1);
             
-          svg_line = d3.svg.line()
+          svg_line = d3.svg.line<DataType>()
           .interpolate(pathInterpolation)
           .x(function(d) { return d.x; })
           .y(function(d) { return d.y; });     
