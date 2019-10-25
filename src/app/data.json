@@ -1,0 +1,16 @@
+ {
+    "title": "Intelligent Investment Ops Health Dashboard",
+    "stations": [
+      {"label":"START","lines":["Rimes File Acc Trail"]},    
+      {"label":"IFEEDS","lines":["Rimes File Acc Trail"]},
+      {"label":"ETL","lines":["Rimes File Acc Trail"]},
+      {"label":"STAGING","lines":["BBG File Acc Trail"]},
+      {"label":"TSTG","lines":["BBG File Acc Trail"]},
+      {"label":"TARGET","lines":["BBG File Acc Trail"]},
+      {"label":"STAGING","lines":["Rimes File Acc Trail","BBG File Acc Trail", "Market Index Trail"]},   
+      {"label":"TSTG","lines":["Market Index Trail"]},
+      {"label":"FACT","lines":["Market Index Trail"]}
+    ]
+  }
+  
+  
