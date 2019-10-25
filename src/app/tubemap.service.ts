@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as d3Shape from 'd3-shape';
-import * as d3Select from 'd3-selection';
-import * as d3Transition from 'd3-transition';
 import * as d3 from 'd3';
 import * as _ from 'underscore';
 import $ from 'jquery';
@@ -244,14 +241,14 @@ export class TubemapService {
 
           pathInterpolation = pathInterpolation.charAt(0).toUpperCase() + pathInterpolation.slice(1);
             
-      svg_line = d3.line<DataType>()      
-      .curve(d3["curve"+pathInterpolation])
-      .x((d)=> { return d.x; })
-      .y((d)=> { return d.y; });      
+          svg_line = d3.svg.line()
+          .interpolate(pathInterpolation)
+          .x(function(d) { return d.x; })
+          .y(function(d) { return d.y; });     
   
       _.each(lines, (line) => {  
-        console.log(`Points-----+${JSON.stringify(line.points)}+'\n+
-        svg_line(points) is --+${svg_line(line.points)}+`);      
+        // console.log(`Points-----+${JSON.stringify(line.points)}+'\n+
+        // svg_line(points) is --+${svg_line(line.points)}+`);      
         var points = line.points;
         let path = svg.append("path")
                     .attr("d", svg_line(points))
@@ -267,9 +264,9 @@ export class TubemapService {
           path
             .attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
-        //     .transition()
-        //       .duration(animationDuration)
-        //       .ease("linear")
+            .transition()
+              .duration(animationDuration)
+              .ease("linear")
               .attr("stroke-dashoffset", 0)
   
         // otherwise, set the stroke dash
@@ -465,7 +462,6 @@ export class TubemapService {
   
           x = point.x;
           y = point.y;
-          // below two lines i have commented because they were throwing error :(
           point.id = _.uniqueId('p');
           point.direction1 = direction;
   
@@ -558,7 +554,6 @@ export class TubemapService {
     }
   
     makeEndLines(lines, options){
-      var temphelper = this.helper;
       var pointRadiusLarge = options.pointRadiusLarge,
           lineLength = pointRadiusLarge * 2 + 10,
           endLines = [],
@@ -567,10 +562,8 @@ export class TubemapService {
       _.each(lines, (line, i)=>{
         var firstPoint = line.points[0],
             lastPoint = line.points[line.points.length-1],
-            lineClassName = temphelper.parameterize('line-'+line.label) + ' end-line',
-            // this.helper.parameterize('line-'+line.label) + ' end-line',
-            pointClassName = temphelper.parameterize('point-'+line.label) + ' end-line',
-            // this.helper.parameterize('point-'+line.label) + ' end-line',
+            lineClassName = this.helper.parameterize('line-'+line.label) + ' end-line',
+            pointClassName = this.helper.parameterize('point-'+line.label) + ' end-line',
             lineStart = { className: lineClassName + ' start-line', type: 'symbol', points: [] },
             lineEnd = { className: lineClassName, type: 'symbol', points: [] },
   
@@ -701,7 +694,6 @@ export class TubemapService {
   
       // add a space
       y1 += gridUnit;
-      var temphelper = this.helper;
       // loop through columns
       _.each(columnLines, (columnLine, c)=>{
   
@@ -711,10 +703,8 @@ export class TubemapService {
         // loop through lines
         _.each(columnLine, (line, i)=>{
   
-          var lineClassName = temphelper.parameterize('line-'+line.label) + ' legend',
-          // this.helper.parameterize('line-'+line.label) + ' legend',
-              pointClassName = temphelper.parameterize('point-'+line.label) + ' legend';
-              // this.helper.parameterize('point-'+line.label) + ' legend';
+          var lineClassName = this.helper.parameterize('line-'+line.label) + ' legend',
+              pointClassName = this.helper.parameterize('point-'+line.label) + ' legend';
   
           // add symbol dot
           legend.dots.push({
@@ -795,7 +785,6 @@ export class TubemapService {
       // ensure y-unit is 2 or more
       if (yUnit<2) yUnit = 2;
       options.yUnit = yUnit;
-      var temphelper = this.helper
       // loop through stations
       _.each(stations, (station, i)=>{
         var nextY = paddingY + i * yUnit, // next available yUnit
@@ -808,10 +797,8 @@ export class TubemapService {
           // if line already exists
           var foundLine = _.findWhere(lines, {label: lineLabel}),
               prevPoint,
-              lineClassName = temphelper.parameterize('line-'+lineLabel) + " primary",
-              //this.helper.parameterize('line-'+lineLabel) + " primary",
-              pointClassName = temphelper.parameterize('point-'+lineLabel),
-              // this.helper.parameterize('point-'+lineLabel),
+              lineClassName = this.helper.parameterize('line-'+lineLabel) + " primary",
+              pointClassName = this.helper.parameterize('point-'+lineLabel),
               newPoint;
   
           // retieve previous point

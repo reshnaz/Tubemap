@@ -1,5 +1,6 @@
 import { Component, AfterContentInit } from '@angular/core';
 import {TubemapService} from './tubemap.service';
+import {HelperService} from './helper.service';
 import config from '../tubemapconfig.json';
 import data from './data.json';
 
@@ -11,7 +12,7 @@ import data from './data.json';
 export class AppComponent implements AfterContentInit {
   title = 'tubemap-dashboard';
 
-  constructor(private tubeservice: TubemapService) {}
+  constructor(private tubeservice: TubemapService, private helper: HelperService) {}
 
   ngAfterContentInit() {
 
