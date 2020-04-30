@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.3",
     "@angular/router": "~8.2.3",
     "d3": "3.4.13",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery.panzoom": "^3.2.3",
     "modernizr": "^3.3.1",
     "rxjs": "~6.4.0",
